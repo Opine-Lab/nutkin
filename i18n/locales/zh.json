@@ -1,0 +1,113 @@
+{
+  "nav": {
+    "market": "市场",
+    "analytics": "BRC2.0 分析",
+    "community": "社区",
+    "trustScore": "信任评分",
+    "documentation": "文档",
+    "connectWallet": "连接钱包",
+    "tradeNow": "立即交易",
+    "language": "语言"
+  },
+  "hero": {
+    "title": "欢迎来到",
+    "subtitle": "最值得信赖的 BRC2.0 代币平台。体验实时分析、安全交易和全面的市场数据。",
+    "getStarted": "立即开始",
+    "viewAnalytics": "查看分析",
+    "stats": {
+      "totalVolume": "总市值",
+      "activeUsers": "持有用户",
+      "price": "当前价格",
+      "tvl": "TVL"
+    }
+  },
+  "market": {
+    "title": "市场概览",
+    "subtitle": "BRC2.0 代币的实时市场数据和分析",
+    "totalMarketCap": "总市值",
+    "volume24h": "24小时交易量",
+    "activeTraders": "活跃交易者",
+    "totalTransactions": "总交易数",
+    "last24h": "过去24小时",
+    "allTime": "全部"
+  },
+  "platform": {
+    "stats": "平台统计",
+    "totalTokens": "总代币数",
+    "verifiedTokens": "已验证代币",
+    "newToday": "今日新增",
+    "audited": "已审计",
+    "networkStatus": "网络状态",
+    "blockHeight": "区块高度",
+    "gasPrice": "Gas 价格",
+    "tps": "TPS",
+    "allSystemsOperational": "所有系统正常运行"
+  },
+  "analytics": {
+    "title": "BRC2.0 代币分析",
+    "subtitle": "实时数据",
+    "live": "实时",
+    "volume24h": "24小时交易量",
+    "marketCap": "市值",
+    "holders": "持有者",
+    "trustScore": "信任评分",
+    "activeTokens": "活跃代币",
+    "totalVolume": "24小时总量",
+    "tokens": {
+      "nutkinToken": "Nutkin"
+    }
+  },
+  "trust": {
+    "title": "信任与安全仪表板",
+    "subtitle": "由区块链验证支持的全面安全指标和信任指标",
+    "platformTrustScore": "平台信任评分",
+    "securityAudits": "安全审计",
+    "securityAuditsPassed": "已通过的安全审计",
+    "lastAudit": "上次审计",
+    "daysAgo": "天前",
+    "activeValidators": "活跃验证者",
+    "allSystemsOperational": "所有系统正常运行",
+    "trustIndicators": "信任指标",
+    "smartContractVerification": "智能合约验证",
+    "liquidityLock": "流动性锁定",
+    "teamTransparency": "团队透明度",
+    "communityTrust": "社区信任",
+    "codeQuality": "代码质量",
+    "historicalPerformance": "历史表现"
+  },
+  "footer": {
+    "description": "值得信赖的 BRC2.0 代币平台，提供安全透明的区块链交易。",
+    "platform": "平台",
+    "market": "市场",
+    "analytics": "分析",
+    "trustScore": "信任评分",
+    "api": "API",
+    "resources": "资源",
+    "documentation": "文档",
+    "helpCenter": "帮助中心",
+    "community": "社区",
+    "blog": "博客",
+    "connect": "联系我们",
+    "copyright": "© 2026 Nutkin 平台。保留所有权利。",
+    "privacyPolicy": "隐私政策",
+    "termsOfService": "服务条款",
+    "contact": "联系方式"
+  },
+  "community": {
+    "title": "加入我们的社区",
+    "subtitle": "与全球 BRC2.0 爱好者一起成长，分享经验，探索未来",
+    "discord": "加入我们的 Discord 服务器",
+    "twitter": "关注我们的最新动态",
+    "telegram": "加入 Telegram 群组",
+    "github": "贡献代码",
+    "members": "成员",
+    "followers": "关注者",
+    "stars": "Stars",
+    "activeCommunity": "活跃社区",
+    "activeCommunityDesc": "加入我们的全球社区，与其他开发者和用户交流分享经验。",
+    "openSource": "开源项目",
+    "openSourceDesc": "所有代码在 GitHub 上开源，欢迎贡献和反馈。",
+    "events": "社区活动",
+    "eventsDesc": "参加线上研讨会、黑客松和社区聚会活动。"
+  }
+}

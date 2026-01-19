@@ -1,0 +1,115 @@
+{
+  "nav": {
+    "market": "Market",
+    "analytics": "BRC2.0 Analytics",
+    "community": "Community",
+    "trustScore": "Trust Score",
+    "documentation": "Documentation",
+    "connectWallet": "Connect Wallet",
+    "tradeNow": "Trade Now",
+    "language": "Language"
+  },
+  "hero": {
+    "title": "Welcome to",
+    "subtitle": "The most trusted BRC2.0 token platform. Experience real-time analytics, secure transactions, and comprehensive market data.",
+    "getStarted": "Get Started",
+    "viewAnalytics": "View Analytics",
+    "stats": {
+      "totalVolume": "Market Cap",
+      "activeUsers": "Active Users",
+      "price": "Latest Price",
+      "tvl": "TVL "
+    }
+  },
+  "market": {
+    "title": "Market Overview",
+    "subtitle": "Real-time market data and analytics for BRC2.0 tokens",
+    "totalMarketCap": "Market Cap",
+    "volume24h": "24h Volume",
+    "activeTraders": "Active Traders",
+    "totalTransactions": "Transactions",
+    "last24h": "Last 24h",
+    "allTime": "TVL"
+  },
+  "platform": {
+    "stats": "Platform Stats",
+    "totalTokens": "Total Tokens",
+    "verifiedTokens": "Verified Tokens",
+    "newToday": "New Today",
+    "audited": "Audited",
+    "networkStatus": "Network Status",
+    "blockHeight": "Block Height",
+    "gasPrice": "Gas Price",
+    "tps": "TPS",
+    "allSystemsOperational": "All systems operational"
+  },
+  "analytics": {
+    "title": "BRC2.0 Token Analytics",
+    "subtitle": "Real Time Data ",
+    "live": "Live",
+    "volume24h": "Volume 24h",
+    "marketCap": "Market Cap",
+    "holders": "Holders",
+    "trustScore": "Trust Score",
+    "activeTokens": "Active Tokens",
+    "totalVolume": "24h Volume",
+    "tokens": {
+      "nutkinToken": "Nutkin",
+      "brcAlpha": "BRC Alpha",
+      "chainToken": "Chain Token"
+    }
+  },
+  "trust": {
+    "title": "Trust & Security Dashboard",
+    "subtitle": "Comprehensive security metrics and trust indicators powered by blockchain verification",
+    "platformTrustScore": "Platform Trust Score",
+    "securityAudits": "Security Audits",
+    "securityAuditsPassed": "Security Audits Passed",
+    "lastAudit": "Last audit",
+    "daysAgo": "days ago",
+    "activeValidators": "Active Validators",
+    "allSystemsOperational": "All systems operational",
+    "trustIndicators": "Trust Indicators",
+    "smartContractVerification": "Smart Contract Verification",
+    "liquidityLock": "Liquidity Lock",
+    "teamTransparency": "Team Transparency",
+    "communityTrust": "Community Trust",
+    "codeQuality": "Code Quality",
+    "historicalPerformance": "Historical Performance"
+  },
+  "footer": {
+    "description": "The trusted BRC2.0 token platform for secure and transparent blockchain transactions.",
+    "platform": "Platform",
+    "market": "Market",
+    "analytics": "Analytics",
+    "trustScore": "Trust Score",
+    "api": "API",
+    "resources": "Resources",
+    "documentation": "Documentation",
+    "helpCenter": "Help Center",
+    "community": "Community",
+    "blog": "Blog",
+    "connect": "Connect",
+    "copyright": "© 2026 Nutkin Platform. All rights reserved.",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "contact": "Contact"
+  },
+  "community": {
+    "title": "Join Our Community",
+    "subtitle": "Connect with BRC2.0 enthusiasts worldwide, share experiences, and explore the future together",
+    "discord": "Join our Discord server",
+    "twitter": "Follow our latest updates",
+    "telegram": "Join Telegram group",
+    "github": "Contribute code",
+    "members": "Members",
+    "followers": "Followers",
+    "stars": "Stars",
+    "activeCommunity": "Active Community",
+    "activeCommunityDesc": "Join our global community to connect with developers and users, share experiences and insights.",
+    "openSource": "Open Source",
+    "openSourceDesc": "All code is open source on GitHub. Contributions and feedback are welcome.",
+    "events": "Community Events",
+    "eventsDesc": "Participate in online seminars, hackathons, and community meetups."
+  }
+}

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html {{ HTML_ATTRS }}>
+  <head {{ HEAD_ATTRS }}>
+    {{ HEAD }}
+    <style>
+      /* 初始加载动画 - 在 Vue 加载前显示 */
+      #app-loading {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #020617; /* slate-950 */
+        transition: opacity 0.3s ease;
+      }
+
+      #app-loading.loaded {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .loading-container {
+        text-align: center;
+      }
+
+      /* 旋转 Logo 容器 */
+      .loading-logo {
+        position: relative;
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 24px;
+      }
+
+      /* 外圈边框 */
+      .loading-ring-bg {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        border: 4px solid rgba(245, 158, 11, 0.2); /* amber-500/20 */
+      }
+
+      /* 旋转边框 */
+      .loading-ring {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        border: 4px solid transparent;
+        border-top-color: #f59e0b; /* amber-500 */
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Logo Image */
+      .loading-logo-img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 48px;
+        height: 48px;
+        object-fit: contain;
+      }
+
+      /* 文字 */
+      .loading-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #fbbf24; /* amber-400 */
+        margin-bottom: 8px;
+        font-family: 'Space Grotesk', sans-serif;
+      }
+
+      .loading-subtitle {
+        font-size: 14px;
+        color: #94a3b8; /* slate-400 */
+        margin-bottom: 24px;
+      }
+
+      /* 进度条 */
+      .loading-bar-container {
+        width: 256px;
+        height: 4px;
+        background: #1e293b; /* slate-800 */
+        border-radius: 9999px;
+        overflow: hidden;
+        margin: 0 auto;
+      }
+
+      .loading-bar {
+        height: 100%;
+        background: linear-gradient(to right, #f59e0b, #f97316); /* amber-500 to orange-500 */
+        animation: loading-bar 1.5s ease-in-out infinite;
+      }
+
+      @keyframes loading-bar {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(400%);
+        }
+      }
+    </style>
+  </head>
+  <body {{ BODY_ATTRS }}>
+    <!-- 原生加载动画 -->
+    <div id="app-loading">
+      <div class="loading-container">
+        <!-- Spinning Logo -->
+        <div class="loading-logo">
+          <div class="loading-ring-bg"></div>
+          <div class="loading-ring"></div>
+          <img src="/logo.png" alt="Nutkin Logo" class="loading-logo-img" />
+        </div>
+        
+        <!-- Loading Text -->
+        <div class="loading-title">Nutkin</div>
+        <div class="loading-subtitle">Loading BRC2.0 Platform...</div>
+        
+        <!-- Loading Bar -->
+        <div class="loading-bar-container">
+          <div class="loading-bar"></div>
+        </div>
+      </div>
+    </div>
+
+    {{ APP }}
+
+    <script>
+      // 当 Vue 应用挂载后隐藏加载动画
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          const loading = document.getElementById('app-loading');
+          if (loading) {
+            loading.classList.add('loaded');
+            setTimeout(() => {
+              loading.remove();
+            }, 300);
+          }
+        }, 500);
+      });
+    </script>
+  </body>
+</html>
