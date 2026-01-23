@@ -63,7 +63,7 @@ export interface TokenData {
 export const fetchBRC20TokenData = async (tick: string): Promise<TokenData> => {
   try {
     // 使用服务端代理，避免跨域问题
-    const response = await fetch(`/api/brc20?tick=${tick}`)
+    const response = await fetch(`https://proxy.venc.cn/proxy/https://v2api.bestinslot.xyz/brc2.0?tick=nutkin`)
     
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`)
