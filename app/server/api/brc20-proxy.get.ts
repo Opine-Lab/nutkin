@@ -19,6 +19,8 @@ export default defineEventHandler(async (event) => {
     if (params.toString()) {
       apiUrl += `?${params.toString()}`
     }
+    
+    console.log('Fetching API URL:', apiUrl) // 调试日志
 
     // 发起请求到目标 API
     const response = await fetch(apiUrl, {

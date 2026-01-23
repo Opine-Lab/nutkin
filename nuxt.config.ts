@@ -45,14 +45,17 @@ export default defineNuxtConfig({
     devProxy: {
       '/api/brc20': {
         target: 'https://v2api.bestinslot.xyz/brc2.0',
-        changeOrigin: true
+        changeOrigin: true,
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'User-Agent': 'Nutkin-BRC20-Client/1.0'
+        }
       }
     },
     // 生产环境路由处理
+    // 移除与 server/api 目录下手动编写的代理文件冲突的配置
     routeRules: {
-      '/api/brc20': {
-        proxy: 'https://v2api.bestinslot.xyz/brc2.0'
-      },
       '/': { prerender: true },
       '/**': { isr: 60 } // Incremental Static Regeneration
     }
