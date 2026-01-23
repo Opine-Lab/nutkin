@@ -42,6 +42,7 @@ export default defineNuxtConfig({
 
     // Nitro 配置（代理和路由）
     nitro: {
+        preset: 'vercel',
         // 开发代理
         devProxy: {
             '/api/nutkin': {
