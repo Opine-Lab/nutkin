@@ -50,8 +50,8 @@ export default defineNuxtConfig({
     },
     // 生产环境路由处理
     routeRules: {
-      '/api/brc20/**': {
-        proxy: 'https://v2api.bestinslot.xyz/brc2.0/**'
+      '/api/brc20': {
+        proxy: 'https://v2api.bestinslot.xyz/brc2.0'
       },
       '/': { prerender: true },
       '/**': { isr: 60 } // Incremental Static Regeneration
