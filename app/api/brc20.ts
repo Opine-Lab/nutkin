@@ -62,15 +62,14 @@ export interface TokenData {
  */
 export const fetchBRC20TokenData = async (tick: string): Promise<TokenData> => {
   try {
-    // 使用代理路径，避免跨域问题
-    const response = await fetch(`https://v2api.bestinslot.xyz/brc2.0?tick=${tick}`)
+    // 使用服务端代理，避免跨域问题
+    const response = await fetch(`/api/brc20?tick=${tick}`)
     
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`)
     }
-    
-    const data = await response.json()
-    return data
+
+    return await response.json()
   } catch (error) {
     console.error('Error fetching BRC20 token data:', error)
     throw error
