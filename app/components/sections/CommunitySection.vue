@@ -2,7 +2,7 @@
   <section id="community" class="py-16 px-4">
     <div class="max-w-7xl mx-auto">
       <div class="text-center mb-12 scroll-animate">
-        <h2 class="text-3xl md:text-4xl font-bold text-white font-heading mb-4">
+        <h2 class="text-3xl lg:text-4xl font-bold text-white font-heading mb-4">
           {{ $t('community.title') }}
         </h2>
         <p class="text-slate-400 max-w-2xl mx-auto">
@@ -10,26 +10,32 @@
         </p>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-        <!-- Discord -->
+      <div class="grid lg:grid-cols-2 xl:grid-cols-3 gap-6 mb-12">
+        <!-- QQ群 -->
         <UiCard 
-          class="p-6 text-center hover:border-indigo-500/50 transition-all duration-300 cursor-pointer scroll-animate scroll-animate-delay-1" 
+          class="p-6 text-center hover:border-indigo-500/50 transition-all duration-300 scroll-animate scroll-animate-delay-1" 
           variant="dark"
         >
           <div class="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 mb-4">
-            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028 14.09 14.09 0 001.226-1.994.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 1024 1024">
+              <path d="M824.8 613.2c-16-51.4-34.4-94.6-62.7-165.3C766.5 262.2 689.3 112 511.5 112 331.7 112 256.2 265.2 261 447.9c-28.4 70.8-46.7 113.7-62.7 165.3-34 109.5-23 154.8-14.6 155.8 18 2.2 70.1-82.4 70.1-82.4 0 49 25.2 112.9 79.8 159-26.4 8.1-85.7 29.9-71.6 53.8 11.4 19.3 196.2 12.3 249.5 6.3 53.3 6 238.1 13 249.5-6.3 14.1-23.8-45.3-45.7-71.6-53.8 54.6-46.2 79.8-110.1 79.8-159 0 0 52.1 84.6 70.1 82.4 8.5-1.1 19.5-46.4-14.5-155.8z"/>
             </svg>
           </div>
-          <h3 class="text-lg font-semibold text-white font-heading mb-2">Discord</h3>
-          <p class="text-sm text-slate-400 mb-3">{{ $t('community.discord') }}</p>
-          <div class="text-2xl font-bold text-indigo-400 font-heading">12.5K+</div>
-          <div class="text-xs text-slate-500 mt-1">{{ $t('community.members') }}</div>
+          <h3 class="text-lg font-semibold text-white font-heading mb-2">QQ群</h3>
+          <p class="text-sm text-slate-400 mb-4">{{ $t('community.qq') }}</p>
+          <a
+            href="https://qm.qq.com/q/Zvwyr7b8ga"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-block w-full py-2 px-4 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white text-sm font-medium rounded-lg transition-all"
+          >
+            {{ $t('community.joinGroup') }}
+          </a>
         </UiCard>
 
         <!-- Twitter -->
         <UiCard 
-          class="p-6 text-center hover:border-blue-500/50 transition-all duration-300 cursor-pointer scroll-animate scroll-animate-delay-2" 
+          class="p-6 text-center hover:border-blue-500/50 transition-all duration-300 scroll-animate scroll-animate-delay-2" 
           variant="dark"
         >
           <div class="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-gradient-to-br from-blue-400 to-blue-600 mb-4">
@@ -38,14 +44,20 @@
             </svg>
           </div>
           <h3 class="text-lg font-semibold text-white font-heading mb-2">Twitter</h3>
-          <p class="text-sm text-slate-400 mb-3">{{ $t('community.twitter') }}</p>
-          <div class="text-2xl font-bold text-blue-400 font-heading">28.3K+</div>
-          <div class="text-xs text-slate-500 mt-1">{{ $t('community.followers') }}</div>
+          <p class="text-sm text-slate-400 mb-4">{{ $t('community.twitter') }}</p>
+          <a
+            href="https://x.com/BRC_20oula"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-block w-full py-2 px-4 bg-gradient-to-r from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 text-white text-sm font-medium rounded-lg transition-all"
+          >
+            {{ $t('community.followTwitter') }}
+          </a>
         </UiCard>
 
         <!-- Telegram -->
         <UiCard 
-          class="p-6 text-center hover:border-cyan-500/50 transition-all duration-300 cursor-pointer scroll-animate scroll-animate-delay-3" 
+          class="p-6 text-center hover:border-cyan-500/50 transition-all duration-300 scroll-animate scroll-animate-delay-3" 
           variant="dark"
         >
           <div class="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-500 mb-4">
@@ -54,30 +66,20 @@
             </svg>
           </div>
           <h3 class="text-lg font-semibold text-white font-heading mb-2">Telegram</h3>
-          <p class="text-sm text-slate-400 mb-3">{{ $t('community.telegram') }}</p>
-          <div class="text-2xl font-bold text-cyan-400 font-heading">15.8K+</div>
-          <div class="text-xs text-slate-500 mt-1">{{ $t('community.members') }}</div>
-        </UiCard>
-
-        <!-- GitHub -->
-        <UiCard 
-          class="p-6 text-center hover:border-gray-500/50 transition-all duration-300 cursor-pointer scroll-animate scroll-animate-delay-4" 
-          variant="dark"
-        >
-          <div class="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-gradient-to-br from-gray-600 to-gray-800 mb-4">
-            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
-            </svg>
-          </div>
-          <h3 class="text-lg font-semibold text-white font-heading mb-2">GitHub</h3>
-          <p class="text-sm text-slate-400 mb-3">{{ $t('community.github') }}</p>
-          <div class="text-2xl font-bold text-gray-400 font-heading">3.2K+</div>
-          <div class="text-xs text-slate-500 mt-1">{{ $t('community.stars') }}</div>
+          <p class="text-sm text-slate-400 mb-4">{{ $t('community.telegram') }}</p>
+          <a
+            href="https://t.me/ChineseNUTKIN"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-block w-full py-2 px-4 bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white text-sm font-medium rounded-lg transition-all"
+          >
+            {{ $t('community.joinChannel') }}
+          </a>
         </UiCard>
       </div>
 
       <!-- Community Highlights -->
-      <div class="grid md:grid-cols-3 gap-6">
+      <div class="grid lg:grid-cols-3 gap-6">
         <UiCard class="p-6 scroll-animate scroll-animate-left" variant="darker">
           <div class="flex items-start gap-4">
             <div class="flex-shrink-0 w-12 h-12 rounded-lg bg-amber-500/20 flex items-center justify-center">

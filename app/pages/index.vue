@@ -2,7 +2,14 @@
   <div>
     <SectionsHeroSection />
     <SectionsMarketOverview />
-    <SectionsCommunitySection />
-    <SectionsTrustSection />
+    <ClientOnly>
+      <SectionsMiningSection />
+    </ClientOnly>
+    <ClientOnly>
+      <SectionsCommunitySection />
+    </ClientOnly>
+    <ClientOnly>
+      <SectionsTrustSection />
+    </ClientOnly>
   </div>
 </template>

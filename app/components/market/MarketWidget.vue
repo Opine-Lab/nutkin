@@ -15,16 +15,8 @@
 
     <!-- 内容层 -->
     <div class="relative z-10">
-    <div class="flex items-center justify-between mb-4 pr-12">
+    <div class="mb-4 pr-12">
       <h3 class="text-lg font-semibold text-white font-heading">{{ title }}</h3>
-      <div
-        :class="[
-          'px-2 py-1 rounded-lg text-xs font-medium flex-shrink-0',
-          trendColor
-        ]"
-      >
-        {{ changeText }}
-      </div>
     </div>
 
     <div class="flex items-center justify-between">
@@ -60,17 +52,6 @@ const formattedValue = computed(() => {
     }).format(props.value)
   }
   return props.value
-})
-
-const changeText = computed(() => {
-  const sign = props.change >= 0 ? '+' : ''
-  return `${sign}${props.change.toFixed(2)}%`
-})
-
-const trendColor = computed(() => {
-  if (props.change > 0) return 'bg-emerald-500/20 text-emerald-400'
-  if (props.change < 0) return 'bg-red-500/20 text-red-400'
-  return 'bg-slate-500/20 text-slate-400'
 })
 
 const iconGradient = computed(() => {

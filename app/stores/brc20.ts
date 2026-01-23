@@ -16,11 +16,13 @@ export interface FormattedToken {
   price: string
   change24h: number
   volume24h: string
+  volume7d: string
   allVolume: string
   marketCap: string
   holders: string
   trustScore: number
   tvl: number
+  apr: number
   gradient: string
 }
 
@@ -47,7 +49,6 @@ export const useBRC20Store = defineStore('brc20', {
 
       const data = state.tokenData
       const store = useBRC20Store()
-      console.log(data.volume.all);
       
       return [
         {
@@ -60,10 +61,13 @@ export const useBRC20Store = defineStore('brc20', {
           change24h: Number(data.pair.price_change_24h.toFixed(2)),
           allVolume: `${toBTC(data.volume.all)}`,
           volume24h: `${toBTC(parseFloat(data.pair.volume_24h))}`,
+          volume7d: `${toBTC(data.volume.all)}`,
           marketCap: `${toBTC(data.pair.market_cap)}`,
           holders: formatNumber(data.holder_count),
           trustScore: store.calculateTrustScore(data),
           tvl: toBTC(parseFloat(data.pair.tvl)),
+          apr: data.pair.apr,
+          
           gradient: 'from-amber-500 to-orange-600'
         }
       ]

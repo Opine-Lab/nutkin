@@ -3,7 +3,7 @@
     <div class="max-w-7xl mx-auto">
       
       <div class="text-center mb-12 scroll-animate">
-        <h2 class="text-3xl md:text-4xl font-bold text-white font-heading mb-4">
+        <h2 class="text-3xl lg:text-4xl font-bold text-white font-heading mb-4">
           {{ $t('market.title') }}
         </h2>
         <p class="text-slate-400 max-w-2xl mx-auto">
@@ -11,13 +11,12 @@
         </p>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="grid lg:grid-cols-2 xl:grid-cols-4 gap-6">
         <MarketWidget
           class="scroll-animate scroll-animate-delay-1"
           :title="$t('market.totalMarketCap')"
           :value="token.marketCap"
           subtitle="BTC"
-          :change="5.67"
           icon="dollar"
         />
         <MarketWidget
@@ -25,15 +24,13 @@
           :title="$t('market.volume24h')"
           :value="token.volume24h"
           subtitle="BTC"
-          :change="12.3"
           icon="trending"
         />
         <MarketWidget
           class="scroll-animate scroll-animate-delay-3"
           :title="$t('market.activeTraders')"
           :value="token.holders.toString()"
-          subtitle="BTC"
-          :change="8.9"
+          subtitle=""
           icon="users"
         />
         <MarketWidget
@@ -41,14 +38,15 @@
           title="TVL"
           :value="formatNumber(Number(token.tvl), { maximumFractionDigits: 4 })"
           subtitle="BTC"
-          :change="3.4"
           icon="chart"
         />
       </div>
     <div class="max-w-7xl mx-auto py-16 ">
-      <div class="scroll-animate">
-        <AnalyticsBRC20Analytics />
-      </div>
+      <ClientOnly>
+        <div class="scroll-animate">
+          <AnalyticsBRC20Analytics />
+        </div>
+      </ClientOnly>
     </div>
     </div>
   </section>

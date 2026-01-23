@@ -48,6 +48,7 @@
 <script setup lang="ts">
 const { locale } = useI18n()
 const isLanguageSwitching = ref(false)
+const brc20Store = useBRC20Store()
 
 const handleLanguageSwitching = async (switching: boolean) => {
   isLanguageSwitching.value = switching
@@ -56,6 +57,22 @@ const handleLanguageSwitching = async (switching: boolean) => {
     await new Promise(resolve => setTimeout(resolve, 500))
     isLanguageSwitching.value = false
   }
+}
+
+// 延迟加载数据，不阻塞首屏
+if (import.meta.client) {
+  onMounted(() => {
+    // 延迟 200ms 后再加载数据
+    setTimeout(() => {
+      if (!brc20Store.tokenData) {
+        brc20Store.startAutoRefresh()
+      }
+    }, 200)
+  })
+  
+  onUnmounted(() => {
+    brc20Store.stopAutoRefresh()
+  })
 }
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <div
     :class="[
-      'rounded-2xl border backdrop-blur-xl transition-all duration-200',
+      'rounded-2xl border backdrop-blur-xl transition-all duration-300 ease-in-out',
       glassClasses,
       hoverClasses,
       $attrs.class
@@ -36,6 +36,6 @@ const glassClasses = computed(() => {
 })
 
 const hoverClasses = computed(() => {
-  return props.hover ? 'hover:bg-white/10 hover:border-white/20 cursor-pointer' : ''
+  return props.hover ? 'hover:bg-white/10 hover:border-white/20 hover:shadow-lg hover:shadow-amber-500/10 hover:-translate-y-0.5 cursor-pointer' : ''
 })
 </script>

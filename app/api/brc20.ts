@@ -128,3 +128,62 @@ export const fetchKlineData = async (
     throw error
   }
 }
+
+// 交易活动数据类型定义
+export interface TokenInfo {
+  address: string
+  symbol: string
+  decimals: number
+}
+
+export interface ActivityData {
+  id: string
+  type: string  // swap1(卖出): amount1=BTC, amount2=NUTKIN | swap2(买入): amount1=NUTKIN, amount2=BTC
+  timestamp: number
+  block_height: number
+  success: boolean
+  user_address: string
+  user_pubkey: string
+  amount1: string  // swap1时为BTC，swap2时为NUTKIN
+  amount2: string  // swap1时为NUTKIN，swap2时为BTC
+  token_1: string
+  token_2: string
+  pair_address?: string
+  token_a?: TokenInfo  // NUTKIN
+  token_b?: TokenInfo  // fr-BTC
+}
+
+export interface ActivityResponse {
+  activities: ActivityData[]
+  pair_address?: string
+  token_a?: TokenInfo
+  token_b?: TokenInfo
+}
+
+/**
+ * 获取交易活动数据
+ * @param tokenAddress Token 地址
+ * @param limit 数据条数
+ * @param offset 偏移量
+ */
+export const fetchPairActivity = async (
+  tokenAddress: string,
+  limit: number = 200,
+  offset: number = 0
+): Promise<ActivityResponse> => {
+  try {
+    const url = `https://swap-api.bestinslot.xyz/pair-activity/${tokenAddress}?limit=${limit}&offset=${offset}`
+    
+    const response = await fetch(url)
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+    
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.error('Error fetching pair activity:', error)
+    throw error
+  }
+}

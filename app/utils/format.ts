@@ -42,7 +42,7 @@ export const formatNumber = (
  * @param decimals 小数位数，默认 2
  */
 export const formatPrice = (price: number, decimals: number = 2): string => {
-  return `${price.toFixed(decimals)} STAT`
+  return `${price.toFixed(decimals)}`
 }
 
 /**
