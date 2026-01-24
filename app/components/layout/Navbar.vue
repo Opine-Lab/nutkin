@@ -18,12 +18,12 @@
           >
             <img 
               src="/logo.png" 
-              alt="Nutkin Logo" 
+              alt="NUTKIN Logo"
               class="w-10 h-10 hover:scale-110 transition-transform"
             />
             <div class="flex flex-col">
               <span class="text-xl font-bold text-amber-400 font-heading">
-                Nutkin
+                NUTKIN
               </span>
               <span class="text-xs text-slate-400 ">
                 BRC2.0 

@@ -45,9 +45,10 @@ export default defineNuxtConfig({
         preset: 'vercel',
         // 开发代理
         devProxy: {
-            '/api/nutkin': {
-                target: 'https://v2api.bestinslot.xyz/brc2.0?tick=nutkin',
+            '/api/brc20/**': {
+                target: 'https://v2api.bestinslot.xyz/brc2.0',
                 changeOrigin: true,
+
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
@@ -62,8 +63,8 @@ export default defineNuxtConfig({
             '/': { prerender: true },
 
             // NUTKIN API 代理
-            '/api/nutkin': {
-                proxy: 'https://v2api.bestinslot.xyz/brc2.0?tick=nutkin'
+            '/api/brc20/**': {
+                proxy: 'https://v2api.bestinslot.xyz/brc2.0'
             }
         }
     },

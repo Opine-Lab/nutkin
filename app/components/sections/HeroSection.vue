@@ -4,13 +4,13 @@
       <div class="flex justify-center mb-8 scroll-animate scroll-animate-scale">
         <img 
           src="/logo.png" 
-          alt="Nutkin Logo" 
+          alt="NUTKIN Logo"
           class="w-32 h-32 hover:scale-110 transition-transform"
         />
       </div>
       
       <h1 class="text-5xl lg:text-7xl font-bold text-white font-heading mb-6 leading-tight scroll-animate scroll-animate-delay-1">
-        {{ $t('hero.title') }} <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">Nutkin</span>
+        {{ $t('hero.title') }} <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">NUTKIN</span>
       </h1>
       
       <p class="text-xl text-slate-300 max-w-3xl mx-auto mb-8 leading-relaxed scroll-animate scroll-animate-delay-2">
