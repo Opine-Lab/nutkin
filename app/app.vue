@@ -36,6 +36,7 @@
         <LayoutNavbar @language-switching="handleLanguageSwitching" />
         
         <main class="pt-20">
+          <Analytics />
           <NuxtPage />
         </main>
 
@@ -46,6 +47,7 @@
 </template>
 
 <script setup lang="ts">
+import { Analytics } from '@vercel/analytics/nuxt'
 const { locale } = useI18n()
 const isLanguageSwitching = ref(false)
 const brc20Store = useBRC20Store()
