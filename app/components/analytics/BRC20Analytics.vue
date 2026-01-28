@@ -77,7 +77,7 @@
 
 <script setup lang="ts">
 import { useBRC20Store } from '~/stores/brc20'
-import { fetchPairActivity, type ActivityData, type ActivityResponse } from '~/api/brc20'
+import { type ActivityData, type ActivityResponse } from '~/api/brc20'
 import type { Trade } from '~/components/ui/TradeList.vue'
 import { CryptoConverter } from '~/utils/BaseUnit'
 
@@ -139,17 +139,20 @@ const convertActivityToTrade = (activity: ActivityData, response: ActivityRespon
 const loadTrades = async () => {
   try {
     const tokenAddress = '0x5463191b2705596b89e000fdcd60206daa2df8ff'
-    const response = await fetchPairActivity(tokenAddress, 200, 0)
     
-    if (response.activities && response.activities.length > 0) {
-      trades.value = response.activities
+    // 使用store获取数据（定时刷新时使用静默模式）
+    const response = await brc20Store.fetchPairActivity(tokenAddress, 200, 0, true)
+    
+    if (brc20Store.pairActivity && brc20Store.pairActivity.length > 0) {
+      
+      trades.value = brc20Store.pairActivity
         .filter(activity => activity.success) // 只显示成功的交易
-        .map(activity => convertActivityToTrade(activity, response))
+        .map(activity => convertActivityToTrade(activity, { activities: brc20Store.pairActivity }))
         .filter((trade): trade is Trade => trade !== null) // 过滤掉 null（流动性操作）
         .slice(0, 50) // 只显示最近50条
       
       console.log('交易数据加载成功:', trades.value.length, '条')
-    }
+    } 
   } catch (error) {
     console.error('加载交易数据失败:', error)
     // 失败时使用空数组

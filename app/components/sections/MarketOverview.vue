@@ -41,10 +41,12 @@
           icon="chart"
         />
       </div>
-    <div class="max-w-7xl mx-auto py-16 ">
+    <div class="max-w-7xl mx-auto py-16 text-center">
       <ClientOnly>
         <div class="scroll-animate">
-          <AnalyticsBRC20Analytics />
+          <NuxtLink to="/market" class="inline-block px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-lg transition-all duration-200 cursor-pointer font-medium text-sm shadow-lg shadow-amber-500/30 hover:shadow-amber-500/50">
+            {{ $t('market.viewFullAnalytics') }} →
+          </NuxtLink>
         </div>
       </ClientOnly>
     </div>

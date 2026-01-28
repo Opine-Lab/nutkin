@@ -3,7 +3,7 @@
  * 用于管理 BRC20 Token 数据的全局状态
  */
 import { defineStore } from 'pinia'
-import { fetchBRC20TokenData, type TokenData } from '~/api/brc20'
+import { fetchBRC20TokenData, type TokenData, fetchPairActivity, type ActivityData, type ActivityResponse } from '~/api/brc20'
 import { formatNumber, formatPrice,toBTC } from '~/utils/format'
 
 // 格式化后的 Token 数据接口
@@ -37,7 +37,13 @@ export const useBRC20Store = defineStore('brc20', {
     // 错误信息
     error: null as string | null,
     // 自动刷新定时器 ID
-    refreshInterval: null as ReturnType<typeof setInterval> | null
+    refreshInterval: null as ReturnType<typeof setInterval> | null,
+    // Pair Activity 数据
+    pairActivity: [] as ActivityData[],
+    // Pair Activity 加载状态
+    pairActivityLoading: false,
+    // Pair Activity 错误信息
+    pairActivityError: null as string | null
   }),
 
   getters: {
@@ -188,6 +194,44 @@ export const useBRC20Store = defineStore('brc20', {
         return `https://bestinslot.xyz/img/icon/${processedUrl}`
       }
       return processedUrl
+    },
+
+    /**
+     * 获取 Pair Activity 数据
+     * @param tokenAddress 代币地址
+     * @param limit 返回记录数量
+     * @param offset 偏移量
+     * @param silent 是否静默更新（不显示 loading 状态）
+     */
+    async fetchPairActivity(tokenAddress: string, limit: number = 200, offset: number = 0, silent: boolean = false) {
+      try {
+        if (!silent) {
+          this.pairActivityLoading = true
+        }
+        this.pairActivityError = null
+        
+        const data = await fetchPairActivity(tokenAddress, limit, offset)
+        this.pairActivity = data.activities
+        
+        return data
+      } catch (e) {
+        if (!silent) {
+          this.pairActivityError = e instanceof Error ? e.message : 'Failed to fetch pair activity data'
+        }
+        console.error('Error fetching pair activity:', e)
+        throw e
+      } finally {
+        if (!silent) {
+          this.pairActivityLoading = false
+        }
+      }
+    },
+
+    /**
+     * 清空 Pair Activity 数据
+     */
+    clearPairActivity() {
+      this.pairActivity = []
     }
   }
 })

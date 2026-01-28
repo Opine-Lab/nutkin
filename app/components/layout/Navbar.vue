@@ -349,7 +349,7 @@ const emit = defineEmits<{
 
 const navItems = [
   { name: 'Home', key: 'nav.home', href: '/', external: false },
-  { name: 'Market', key: 'nav.market', href: '/#market', external: false },
+  { name: 'Market', key: 'nav.market', href: '/market', external: false },
   { name: 'Staking', key: 'nav.staking', href: '/#mining', external: false },
   { name: 'Community', key: 'nav.community', href: '/#community', external: false },
   { name: 'Platform', key: 'nav.platform', href: '/#platform', external: false },

@@ -36,6 +36,6 @@ const glassClasses = computed(() => {
 })
 
 const hoverClasses = computed(() => {
-  return props.hover ? 'hover:bg-white/10 hover:border-white/20 hover:shadow-lg hover:shadow-amber-500/10 hover:-translate-y-0.5 cursor-pointer' : ''
+  return props.hover ? ' hover:shadow-lg hover:shadow-amber-500/10 cursor-pointer' : ''
 })
 </script>
