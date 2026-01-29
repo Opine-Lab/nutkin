@@ -19,6 +19,17 @@
       <div class="mb-6 " >
         <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 gap-2">
           <h3 class="text-lg font-semibold text-white">{{ t('activeAddressesStats') }}</h3>
+          <div class="relative">
+            <input
+              v-model="searchKeyword"
+              @keyup.enter="performSearch"
+              :placeholder="t('searchAddress')"
+              class="px-3 py-1.5 bg-slate-800 text-slate-300 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 w-full sm:w-48 text-sm"
+            />
+            <svg class="absolute right-3 top-2.5 h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </div>
         </div>
         <div class="bg-slate-950/70 rounded-xl border border-slate-800/50 overflow-hidden">
           <div class="overflow-x-auto">
@@ -26,34 +37,77 @@
               <thead class="sm:hidden">
                 <tr>
                   <th class="px-4 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">{{ t('address') }}</th>
-                  <th class="px-4 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">{{ t('buyTimes') }}</th>
-                  <th class="px-4 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">{{ t('sellTimes') }}</th>
-                  <th class="px-4 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">{{ t('liquidityOps') }}</th>
-                  <th class="px-4 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">{{ t('totalTrades') }}</th>
-                  <th class="px-4 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">{{ t('operation') }}</th>
+                  <th @click="toggleSort('buy')" class="px-4 py-3 text-center text-xs font-medium text-slate-400 uppercase tracking-wider cursor-pointer hover:text-slate-200">
+                    {{ t('buy') }}
+                    <span v-if="sortColumn === 'buy'" class="ml-1">
+                      {{ sortDirection === 'asc' ? '↑' : '↓' }}
+                    </span>
+                  </th>
+                  <th @click="toggleSort('sell')" class="px-4 py-3 text-center text-xs font-medium text-slate-400 uppercase tracking-wider cursor-pointer hover:text-slate-200">
+                    {{ t('sell') }}
+                    <span v-if="sortColumn === 'sell'" class="ml-1">
+                      {{ sortDirection === 'asc' ? '↑' : '↓' }}
+                    </span>
+                  </th>
+                  <th class="px-4 py-3 text-center text-xs font-medium text-slate-400 uppercase tracking-wider">{{ t('liquidity') }}</th>
+                  <th @click="toggleSort('total')" class="px-4 py-3 text-center text-xs font-medium text-slate-400 uppercase tracking-wider cursor-pointer hover:text-slate-200">
+                    {{ t('total') }}
+                    <span v-if="sortColumn === 'total'" class="ml-1">
+                      {{ sortDirection === 'asc' ? '↑' : '↓' }}
+                    </span>
+                  </th>
+                  <th class="px-4 py-3 text-center text-xs font-medium text-slate-400 uppercase tracking-wider">{{ t('operation') }}</th>
                 </tr>
               </thead>
               <thead class="hidden sm:table-header-group">
                 <tr>
                   <th class="px-4 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">{{ t('address') }}</th>
-                  <th class="px-4 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">{{ t('buyTimes') }}</th>
-                  <th class="px-4 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">{{ t('sellTimes') }}</th>
-                  <th class="px-4 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">{{ t('liquidityOps') }}</th>
-                  <th class="px-4 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">{{ t('totalTrades') }}</th>
-                  <th class="px-4 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">{{ t('operation') }}</th>
+                  <th @click="toggleSort('buy')" class="px-4 py-3 text-center text-xs font-medium text-slate-400 uppercase tracking-wider cursor-pointer hover:text-slate-200">
+                    {{ t('buy') }}
+                    <span v-if="sortColumn === 'buy'" class="ml-1">
+                      {{ sortDirection === 'asc' ? '↑' : '↓' }}
+                    </span>
+                  </th>
+                  <th @click="toggleSort('sell')" class="px-4 py-3 text-center text-xs font-medium text-slate-400 uppercase tracking-wider cursor-pointer hover:text-slate-200">
+                    {{ t('sell') }}
+                    <span v-if="sortColumn === 'sell'" class="ml-1">
+                      {{ sortDirection === 'asc' ? '↑' : '↓' }}
+                    </span>
+                  </th>
+                  <th class="px-4 py-3 text-center text-xs font-medium text-slate-400 uppercase tracking-wider">{{ t('liquidity') }}</th>
+                  <th @click="toggleSort('total')" class="px-4 py-3 text-center text-xs font-medium text-slate-400 uppercase tracking-wider cursor-pointer hover:text-slate-200">
+                    {{ t('total') }}
+                    <span v-if="sortColumn === 'total'" class="ml-1">
+                      {{ sortDirection === 'asc' ? '↑' : '↓' }}
+                    </span>
+                  </th>
+                  <th class="px-4 py-3 text-center text-xs font-medium text-slate-400 uppercase tracking-wider">{{ t('operation') }}</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-slate-800/50">
                 <template v-for="addr in Object.values(paginatedAddressSummary) as AddressSummary[]" :key="addr.userAddress">
                   <tr @click="toggleAddressDetails(addr.userAddress)" class="cursor-pointer hover:bg-slate-800/50">
-                    <td class="px-4 py-3 text-sm font-mono text-slate-300">
-                      <span class="truncate max-w-[100px] sm:max-w-xs inline-block">{{ truncateAddress(addr.userAddress) }}</span>
+                    <td class="px-4 py-3 text-sm font-mono text-slate-300 text-left">
+                      <div class="flex items-center group">
+                        <div class="relative">
+                          <span class="truncate max-w-[100px] sm:max-w-xs inline-block">{{ addr.userAddress.substring(0, 6) + '...' + addr.userAddress.substring(addr.userAddress.length - 4) }}</span>
+                        </div>
+                        <button 
+                          @click.stop="copyAddress(addr.userAddress)" 
+                          class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity p-1 text-slate-400 hover:text-slate-200"
+                          :title="t('copyAddress')"
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                          </svg>
+                        </button>
+                      </div>
                     </td>
-                    <td class="px-4 py-3 text-sm text-emerald-400">{{ addr.buyCount }}</td>
-                    <td class="px-4 py-3 text-sm text-violet-400">{{ addr.sellCount }}</td>
-                    <td class="px-4 py-3 text-sm text-amber-400">{{ addr.liquidityCount }}</td>
-                    <td class="px-4 py-3 text-sm text-white">{{ addr.totalCount }}</td>
-                    <td class="px-4 py-3 text-sm">
+                    <td class="px-4 py-3 text-sm text-emerald-400 text-center">{{ addr.buyCount }}</td>
+                    <td class="px-4 py-3 text-sm text-red-400 text-center">{{ addr.sellCount }}</td>
+                    <td class="px-4 py-3 text-sm text-amber-400 text-center">{{ addr.liquidityCount }}</td>
+                    <td class="px-4 py-3 text-sm text-white text-center">{{ addr.totalCount }}</td>
+                    <td class="px-4 py-3 text-sm text-center">
                       <button 
                         @click.stop="toggleAddressDetails(addr.userAddress)" 
                         class="px-3 py-1 bg-slate-700 hover:bg-slate-600 text-slate-300 rounded-md text-sm transition-colors"
@@ -75,6 +129,7 @@
                                     <th class="px-3 py-2 text-left text-xs font-medium text-slate-300 text-left">{{ t('type') }}</th>
                                     <th class="px-3 py-2 text-left text-xs font-medium text-slate-300 text-left">{{ t('NUTKIN') }}</th>
                                     <th class="px-3 py-2 text-left text-xs font-medium text-slate-300 text-left">{{ t('BTC') }}</th>
+                                    <th class="px-3 py-2 text-left text-xs font-medium text-slate-300 text-left">{{ t('price') }}</th>
                                   </tr>
                                 </thead>
                                 <thead class="hidden sm:table-header-group bg-slate-900/50">
@@ -83,6 +138,7 @@
                                     <th class="px-3 py-2 text-left text-xs font-medium text-slate-300 text-left">{{ t('type') }}</th>
                                     <th class="px-3 py-2 text-left text-xs font-medium text-slate-300 text-left">{{ t('NUTKIN') }}</th>
                                     <th class="px-3 py-2 text-left text-xs font-medium text-slate-300 text-left">{{ t('BTC') }}</th>
+                                    <th class="px-3 py-2 text-left text-xs font-medium text-slate-300 text-left">{{ t('price') }}</th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -102,6 +158,9 @@
                                     <td class="px-3 py-2 text-sm text-slate-300">
                                       {{ getBtcAmount(activity) }}
                                     </td>
+                                    <td class="px-3 py-2 text-sm text-slate-300">
+                                      {{ getPrice(activity) }}
+                                    </td>
                                   </tr>
                                 </tbody>
                               </table>
@@ -120,12 +179,35 @@
                                   <span class="text-violet-400 font-medium">{{ getSellBTCAmount(addr.userAddress) }}</span>
                                 </div>
                                 <div class="flex justify-between">
+                                  <span class="text-slate-300">{{ t('buyAvgPrice') }}:</span>
+                                  <span class="text-emerald-400 font-medium">{{ getBuyAveragePrice(addr.userAddress) }}</span>
+                                </div>
+                                <div class="flex justify-between">
                                   <span class="text-slate-300">{{ t('sellNUTKIN') }}:</span>
-                                  <span class="text-amber-400 font-medium">{{ getSellNUTKINAmount(addr.userAddress) }}</span>
+                                  <span class="text-red-400 font-medium">{{ getSellNUTKINAmount(addr.userAddress) }}</span>
                                 </div>
                                 <div class="flex justify-between">
                                   <span class="text-slate-300">{{ t('receiveBTC') }}:</span>
                                   <span class="text-blue-400 font-medium">{{ getBuyBTCAmount(addr.userAddress) }}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                  <span class="text-slate-300">{{ t('sellAvgPrice') }}:</span>
+                                  <span class="text-red-400 font-medium">{{ getSellAveragePrice(addr.userAddress) }}</span>
+                                </div>
+                              </div>
+                              <div class="mt-4 pt-4 border-t border-slate-700">
+                                <div class="flex flex-col space-y-2">
+                                  <div class="text-xs text-slate-400 truncate">{{ t('userAddress') }}:</div>
+                                  <div class="flex items-center">
+                                    <span class="text-xs text-slate-300 flex-1 truncate">{{ addr.userAddress }}</span>
+                                    <button 
+                                      @click="copyAddress(addr.userAddress)" 
+                                      class="ml-2 px-2 py-1 bg-slate-700 hover:bg-slate-600 text-slate-300 rounded text-xs transition-colors"
+                                      title="{{ t('copyAddress') }}"
+                                    >
+                                      {{ copiedAddress === addr.userAddress ? t('copied') : t('copy') }}
+                                    </button>
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -138,9 +220,9 @@
               </tbody>
             </table>
           <!-- 分页控件 -->
-          <div class="flex justify-between items-center mt-4 p-4">
-            <div class="flex items-center space-x-4">
-              <div class="flex items-center space-x-2">
+          <div class="flex flex-col sm:flex-row sm:justify-between items-center mt-4 p-4 space-y-2 sm:space-y-0">
+            <div class="flex flex-wrap items-center gap-2 sm:gap-4">
+              <div class="flex items-center space-x-1 sm:space-x-2">
                 <span class="text-sm text-slate-400">{{ t('perPage') }}</span>
                 <select 
                   v-model="pageSize" 
@@ -154,7 +236,7 @@
                 {{ t('records') }} {{ totalAddresses }} {{ t('records') }}
               </div>
             </div>
-            <div class="flex items-center space-x-2">
+            <div class="flex flex-wrap items-center space-x-1 sm:space-x-2">
               <button 
                 @click="prevPage" 
                 :disabled="currentPage === 1" 
@@ -186,7 +268,7 @@
               >
                 {{ t('next') }}
               </button>
-              <div class="text-sm text-slate-400 ml-2">
+              <div class="text-sm text-slate-400 ml-1 sm:ml-2">
                 ({{ (currentPage - 1) * pageSize + 1 }} - {{ Math.min(currentPage * pageSize, totalAddresses) }})
               </div>
             </div>
@@ -199,9 +281,9 @@
         <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 gap-2">
           <h3 class="text-lg font-semibold text-white">{{ t('tradingDetails') }}</h3>
         </div>
-        <div class="bg-slate-950/70 rounded-xl p-4 border border-slate-800/50">
+        <div class="bg-slate-950/70 rounded-xl border border-slate-800/50 overflow-hidden">
           <div class="overflow-x-auto">
-            <table class="min-w-full rounded-lg border-b border-slate-800/50">
+            <table class="min-w-full border-collapse border-slate-800/50">
               <thead class="sm:hidden">
                 <tr>
                   <th class="px-4 py-3 text-left text-xs font-medium text-slate-400 uppercase tracking-wider">{{ t('time') }}</th>
@@ -222,8 +304,8 @@
               </thead>
               <tbody class="divide-y divide-slate-800/50">
                 <tr v-for="activity in paginatedTrades" :key="activity.id">
-                  <td class="px-4 py-3 text-sm text-slate-300">{{ formatDate(activity.timestamp) }}</td>
-                  <td class="px-4 py-3 text-sm">
+                  <td class="px-2 sm:px-4 py-2 sm:py-3 text-sm text-slate-300">{{ formatDate(activity.timestamp) }}</td>
+                  <td class="px-2 sm:px-4 py-2 sm:py-3 text-sm">
                     <span :class="[
                       'px-2 py-1 rounded-full text-xs sm:text-sm whitespace-nowrap',
                       getActivityTypeClass(activity.type)
@@ -231,19 +313,19 @@
                       {{ getActivityTypeName(activity.type) }}
                     </span>
                   </td>
-                  <td class="px-4 py-3 text-sm font-mono text-slate-300">
+                  <td class="px-2 sm:px-4 py-2 sm:py-3 text-sm font-mono text-slate-300">
                     <span class="truncate max-w-[100px] sm:max-w-xs inline-block">{{ truncateAddress(activity.user_address) }}</span>
                   </td>
-                  <td class="px-4 py-3 text-sm text-slate-300">{{ getNutkinAmount(activity) }}</td>
-                  <td class="px-4 py-3 text-sm text-slate-300">{{ getBtcAmount(activity) }}</td>
+                  <td class="px-2 sm:px-4 py-2 sm:py-3 text-sm text-slate-300">{{ getNutkinAmount(activity) }}</td>
+                  <td class="px-2 sm:px-4 py-2 sm:py-3 text-sm text-slate-300">{{ getBtcAmount(activity) }}</td>
                 </tr>
               </tbody>
             </table>
           </div>
           <!-- 交易明细分页控件 -->
-          <div class="flex justify-between items-center mt-4 p-4">
-            <div class="flex items-center space-x-4">
-              <div class="flex items-center space-x-2">
+          <div class="flex flex-col sm:flex-row sm:justify-between items-center mt-4 p-4 space-y-2 sm:space-y-0">
+            <div class="flex flex-wrap items-center gap-2 sm:gap-4">
+              <div class="flex items-center space-x-1 sm:space-x-2">
                 <span class="text-sm text-slate-400">{{ t('perPage') }}</span>
                 <select 
                   v-model="tradePageSize" 
@@ -257,7 +339,7 @@
                 {{ t('records') }} {{ totalTradeRecords }} {{ t('records') }}
               </div>
             </div>
-            <div class="flex items-center space-x-2">
+            <div class="flex flex-wrap items-center space-x-1 sm:space-x-2">
               <button 
                 @click="prevTradePage" 
                 :disabled="currentTradePage === 1" 
@@ -289,7 +371,7 @@
               >
                 {{ t('next') }}
               </button>
-              <div class="text-sm text-slate-400 ml-2">
+              <div class="text-sm text-slate-400 ml-1 sm:ml-2">
                 ({{ (currentTradePage - 1) * tradePageSize + 1 }} - {{ Math.min(currentTradePage * tradePageSize, totalTradeRecords) }})
               </div>
             </div>
@@ -332,6 +414,8 @@ const { t } = useI18n({
       buyTimes: '买入次数',
       sellTimes: '卖出次数',
       liquidityOps: '流动性操作',
+      liquidity: '流动',
+      total: '总交易',
       totalTrades: '总交易数',
       operation: '操作',
       time: '时间',
@@ -339,6 +423,15 @@ const { t } = useI18n({
       userAddress: '用户地址',
       NUTKIN: 'NUTKIN',
       BTC: 'BTC',
+      price: '单价',
+      secondsAgo: '{count}秒前',
+      minutesAgo: '{count}分钟前',
+      hoursAgo: '{count}小时前',
+      daysAgo: '{count}天前',
+      oneSecondAgo: '1秒前',
+      oneMinuteAgo: '1分钟前',
+      oneHourAgo: '1小时前',
+      oneDayAgo: '1天前',
       loading: '正在加载交易数据...',
       noData: '暂无数据',
       prev: '上一页',
@@ -346,6 +439,12 @@ const { t } = useI18n({
       sell: '卖出',
       addLiquidity: '添加流动性',
       removeLiquidity: '移除流动性',
+      copy: '复制',
+      copied: '已复制',
+      copyAddress: '复制地址',
+      buyAvgPrice: '买入均价',
+      sellAvgPrice: '卖出均价',
+      searchAddress: '搜索地址...',
       next: '下一页'
     },
     en: {
@@ -367,6 +466,8 @@ const { t } = useI18n({
       buyTimes: 'Buy Times',
       sellTimes: 'Sell Times',
       liquidityOps: 'Liquidity Ops',
+      liquidity: 'Liquidity',
+      total: 'Total',
       totalTrades: 'Total Trades',
       operation: 'Operation',
       time: 'Time',
@@ -374,6 +475,15 @@ const { t } = useI18n({
       userAddress: 'User Address',
       NUTKIN: 'NUTKIN',
       BTC: 'BTC',
+      price: 'Price',
+      secondsAgo: '{count}s ago',
+      minutesAgo: '{count}m ago',
+      hoursAgo: '{count}h ago',
+      daysAgo: '{count}d ago',
+      oneSecondAgo: '1s ago',
+      oneMinuteAgo: '1m ago',
+      oneHourAgo: '1h ago',
+      oneDayAgo: '1d ago',
       loading: 'Loading trading data...',
       noData: 'No data',
       prev: 'Prev',
@@ -381,6 +491,12 @@ const { t } = useI18n({
       sell: 'Sell',
       addLiquidity: 'Add Liquidity',
       removeLiquidity: 'Remove Liquidity',
+      copy: 'Copy',
+      copied: 'Copied',
+      copyAddress: 'Copy Address',
+      buyAvgPrice: 'Buy Avg Price',
+      sellAvgPrice: 'Sell Avg Price',
+      searchAddress: 'Search address...',
       next: 'Next'
     }
   }
@@ -401,6 +517,25 @@ const pageSizes = [10, 20, 50, 100]
 
 // 展开的地址列表
 const expandedAddresses = ref<string[]>([])
+
+// 复制地址相关状态
+const copiedAddress = ref<string | null>(null)
+
+// 复制地址到剪贴板
+const copyAddress = async (address: string) => {
+  try {
+    await navigator.clipboard.writeText(address)
+    copiedAddress.value = address
+    // 2秒后清除复制状态
+    setTimeout(() => {
+      if (copiedAddress.value === address) {
+        copiedAddress.value = null
+      }
+    }, 2000)
+  } catch (err) {
+    console.error('Failed to copy address: ', err)
+  }
+}
 
 // 切换地址详情显示状态
 const toggleAddressDetails = (address: string) => {
@@ -452,6 +587,20 @@ const getBtcAmount = (activity: ActivityData) => {
   return activity.amount2
 }
 
+// 计算单价
+const getPrice = (activity: ActivityData) => {
+  const nutkinAmount = parseFloat(getNutkinAmount(activity))
+  const btcAmount = parseFloat(getBtcAmount(activity))
+
+  
+  if (nutkinAmount <= 0) return '0'
+  
+  // 计算每NUTKIN的价格（以BTC计价）
+  let price = btcAmount / nutkinAmount
+  price = price * 100000000
+  return price.toFixed(4) // 保留8位小数
+}
+
 // 截断地址显示
 const truncateAddress = (address: string) => {
   if (!address) return ''
@@ -467,7 +616,11 @@ const formatDate = (timestamp: number) => {
   } else { // 否则是秒单位
     date = new Date(timestamp * 1000);
   }
-  return date.toLocaleString('zh-CN');
+  
+
+  
+  // 否则显示具体日期时间
+  return date.toLocaleString();
 }
 
 // 获取活动类型名称
@@ -504,6 +657,31 @@ const summary = computed(() => {
   return { totalTrades, buyTrades, sellTrades, liquidityActivities }
 })
 
+// 搜索状态
+const searchKeyword = ref('')
+
+// 执行搜索
+const performSearch = () => {
+  // 这里不需要额外的逻辑，因为computed属性会自动响应searchKeyword的变化
+  // 当按下回车时，保持当前搜索状态即可
+}
+
+// 排序状态
+const sortColumn = ref<'buy' | 'sell' | 'total' | null>('total')
+const sortDirection = ref<'asc' | 'desc'>('desc')
+
+// 切换排序
+const toggleSort = (column: 'buy' | 'sell' | 'total') => {
+  if (sortColumn.value === column) {
+    // 如果当前列已排序，切换方向
+    sortDirection.value = sortDirection.value === 'asc' ? 'desc' : 'asc'
+  } else {
+    // 如果切换到新列，设为降序
+    sortColumn.value = column
+    sortDirection.value = 'desc'
+  }
+}
+
 // 计算地址统计
 const addressSummary = computed(() => {
   if (!brc20Store.pairActivity) return {}
@@ -539,9 +717,37 @@ const addressSummary = computed(() => {
     }
   })
   
-  // 按总交易数排序
-  const sortedAddresses = Object.values(summaryMap)
-    .sort((a, b) => b.totalCount - a.totalCount)
+  // 过滤搜索结果
+  let filteredAddresses = Object.values(summaryMap)
+  if (searchKeyword.value.trim() !== '') {
+    const keyword = searchKeyword.value.toLowerCase().trim()
+    filteredAddresses = filteredAddresses.filter(item => 
+      item.userAddress.toLowerCase().includes(keyword)
+    )
+  }
+  
+  // 按排序条件排序
+  const sortedAddresses = filteredAddresses
+    .sort((a, b) => {
+      let result = 0
+      
+      switch (sortColumn.value) {
+        case 'buy':
+          result = a.buyCount - b.buyCount
+          break
+        case 'sell':
+          result = a.sellCount - b.sellCount
+          break
+        case 'total':
+          result = a.totalCount - b.totalCount
+          break
+        default:
+          result = b.totalCount - a.totalCount // 默认按总交易数降序
+      }
+      
+      // 如果排序方向是升序，则反转结果
+      return sortDirection.value === 'asc' ? result : -result
+    })
   
   return sortedAddresses.reduce((acc, item) => ({ ...acc, [item.userAddress]: item }), {})
 })
@@ -601,6 +807,38 @@ const getSellBTCAmount = (address: string) => {
     .filter(activity => activity.type === 'swap2')
     .reduce((sum, activity) => sum + parseFloat(getBtcAmount(activity)), 0)
     .toFixed(8)
+}
+
+// 计算指定地址买入均价 (swap2: user buys NUTKIN with BTC)
+const getBuyAveragePrice = (address: string) => {
+  const activities = getUserActivities(address)
+  const buyActivities = activities.filter(activity => activity.type === 'swap2')
+  
+  if (buyActivities.length === 0) return '0'
+  
+  const totalNUTKIN = buyActivities.reduce((sum, activity) => sum + parseFloat(getNutkinAmount(activity)), 0)
+  const totalBTC = buyActivities.reduce((sum, activity) => sum + parseFloat(getBtcAmount(activity)), 0)
+  
+  if (totalNUTKIN <= 0) return '0'
+  
+  const averagePrice = (totalBTC / totalNUTKIN) * 100000000 // 调整单位
+  return averagePrice.toFixed(4)
+}
+
+// 计算指定地址卖出均价 (swap1: user sells NUTKIN for BTC)
+const getSellAveragePrice = (address: string) => {
+  const activities = getUserActivities(address)
+  const sellActivities = activities.filter(activity => activity.type === 'swap1')
+  
+  if (sellActivities.length === 0) return '0'
+  
+  const totalNUTKIN = sellActivities.reduce((sum, activity) => sum + parseFloat(getNutkinAmount(activity)), 0)
+  const totalBTC = sellActivities.reduce((sum, activity) => sum + parseFloat(getBtcAmount(activity)), 0)
+  
+  if (totalNUTKIN <= 0) return '0'
+  
+  const averagePrice = (totalBTC / totalNUTKIN) * 100000000 // 调整单位
+  return averagePrice.toFixed(4)
 }
 
 // 交易明细分页相关状态

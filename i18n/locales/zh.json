@@ -1,7 +1,7 @@
 {
   "nav": {
     "home": "首页",
-    "market": "市场",
+    "market": "交易分析",
     "staking": "质押",
     "analytics": "BRC2.0 分析",
     "community": "社区",
@@ -47,8 +47,8 @@
     }
   },
   "market": {
-    "title": "市场概览",
-    "subtitle": "BRC2.0 代币的实时市场数据和分析",
+    "title": "交易分析概览",
+    "subtitle": "BRC2.0 代币的实时交易分析数据",
     "totalMarketCap": "总市值",
     "volume24h": "24小时交易量",
     "activeTraders": "活跃交易者",
@@ -127,7 +127,7 @@
   "footer": {
     "description": "值得信赖的 BRC2.0 代币平台，提供安全透明的区块链交易。",
     "platform": "平台",
-    "market": "市场",
+    "market": "交易分析",
     "analytics": "分析",
     "trustScore": "信任评分",
     "api": "API",

@@ -1,7 +1,7 @@
 {
   "nav": {
     "home": "Home",
-    "market": "Market",
+    "market": "Trade Analysis",
     "staking": "Staking",
     "analytics": "BRC2.0 Analytics",
     "community": "Community",
@@ -47,8 +47,8 @@
     }
   },
   "market": {
-    "title": "Market Overview",
-    "subtitle": "Real-time market data and analytics for BRC2.0 tokens",
+    "title": "Trade Analysis Overview",
+    "subtitle": "Real-time trade analysis and data for BRC2.0 tokens",
     "totalMarketCap": "Market Cap",
     "volume24h": "24h Volume",
     "activeTraders": "Active Traders",
@@ -129,7 +129,7 @@
   "footer": {
     "description": "The trusted BRC2.0 token platform for secure and transparent blockchain transactions.",
     "platform": "Platform",
-    "market": "Market",
+    "market": "Trade Analysis",
     "analytics": "Analytics",
     "trustScore": "Trust Score",
     "api": "API",
