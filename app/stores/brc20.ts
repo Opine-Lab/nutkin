@@ -214,6 +214,7 @@ export const useBRC20Store = defineStore('brc20', {
         this.pairActivity = data.activities
         
         return data
+
       } catch (e) {
         if (!silent) {
           this.pairActivityError = e instanceof Error ? e.message : 'Failed to fetch pair activity data'
